@@ -1,4 +1,5 @@
-matmul.sh                                                                                           0000755 0001750 0001750 00000002070 14123061600 012240  0                                                                                                    ustar   benzin                          benzin                                                                                                                                                                                                                 #!/bin/bash
+#!/bin/bash
+matmul.sh    
 
 
 # OPPGAVE 1
