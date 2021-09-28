@@ -1,0 +1,58 @@
+matmul.sh                                                                                           0000755 0001750 0001750 00000002070 14123061600 012240  0                                                                                                    ustar   benzin                          benzin                                                                                                                                                                                                                 #!/bin/bash
+
+
+# OPPGAVE 1
+gcc toBinary.c -o toBinary
+javac MatMulASCII.java
+
+# OPPGAVE 2
+Tid=0
+start_tid=$(date +%s%N)	#OPPGAVE 2B
+showError="yes"
+run="yes"
+
+if [ $# == 2 ]; then
+
+	lengthFirst="${#1}"
+	lenghtSecond="${#2}"
+	fileOne="$1"
+	fileTwo="$2"
+	
+	if [ $lengthFirst == 1 ]; then
+		fileOne="A${fileOne}.mat"
+	fi
+	
+	if [ $lenghtSecond == 1 ]; then
+		fileTwo="B${fileTwo}.mat"
+	fi
+	
+	if ! [ -f $fileOne ] || ! [ -f $fileTwo ]; then
+		echo "Both provided parameters are not existing files"
+		run="no"
+	fi
+	
+	if [ "$run" == "yes" ]; then
+		showError="no"
+		if [ "$fileOne" \< "$fileTwo" ]; then 	#OPPGAVE 2A
+			cat $fileOne $fileTwo | java MatMulASCII
+		else
+			cat $fileTwo $fileOne | java MatMulASCII
+		fi
+	fi
+	
+elif [ $# == 0 ]; then
+	for A in A*mat; 	#OPPGAVE 2C
+	do
+		for B in B*mat
+		do
+		cat $A $B | java MatMulASCII
+		done
+	done
+	showError="no"
+fi
+
+slutt_tid=$(date +%s%N)
+
+if [ $showError == "yes" ]; then
+	echo "Wrong usage, try something like this: ./matmul.sh A3.mat B4.mat"
+fi
